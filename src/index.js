@@ -1,24 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Router, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import confiqureStore from './store';
+import routes from './routers';
 
-class App extends Component {
-	static propTypes = {
-		btnText: PropTypes.string.isRequired
-	}
-	btnOnClick(event) {
-		console.log('Button clicke!', event.target);
-	}
-	render() {
-		return (
-			<div className="test">
-			<h1>App works</h1>
-		<button onClick={this.btnOnClick}>{ this.props.btnText }</button>
-		</div>
-	);
-	}
-}
+const store = confiqureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
-	<App btnText="Click on me!" />,
+	(
+		<Provider store={ store }>
+			<Router history={ history }>
+				{ routes }
+			</Router>
+		</Provider>
+	),
 	document.getElementById('app')
 );
