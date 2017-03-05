@@ -59,13 +59,13 @@ module.exports = {
 				],
 				plugins: ['transform-runtime']
 			},
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css!sass'
-        )
-      },
+            {
+                test: /\.scss$/,
+                loader: 'style' +
+                '!css?sourceMap' +
+                '!autoprefixer-loader?browsers=last 2 version' +
+                '!sass?sourceMap'
+            },
 			{
 				test: /\.(png|jpg|svg|gif)$/,
 				loader: 'file?name=img/[path][name].[ext]'
