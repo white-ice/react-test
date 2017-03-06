@@ -6,7 +6,7 @@ import {syncHistoryWithStore} from 'react-router-redux';
 import confiqureStore from './store';
 import routes from './routers';
 
-const store = confiqureStore(); // Передаем наш store
+export const store = confiqureStore(); // Передаем наш store
 const history = syncHistoryWithStore(browserHistory, store); // синхронизирует наша store с историей
 
 ReactDOM.render(

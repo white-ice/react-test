@@ -12,11 +12,11 @@ export default class App extends Component {
     render() {
         return (
 
-      <div>
-        <Header />
-        { this.props.children }
-        { process.env.NODE_ENV !== 'production' ? <DevTools /> : null }
-      </div>
+            <div>
+                <Header />
+                { this.props.children }
+                { process.env.NODE_ENV !== 'production' ? <DevTools /> : null }
+            </div>
         );
     }
 }
