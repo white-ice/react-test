@@ -1,18 +1,20 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 import App from './app';
 
-import { HomePage, HomeRoutes } from './pages/home/index';
-import { ContactRoutes } from './pages/contact/index';
+import {HomePage, HomeRoutes} from './pages/home/index';
+import {ContactRoutes} from './pages/contact/index';
+import {ListRoutes} from './pages/list/index';
 import ErrorPage from './pages/error/index';
 
 export default (
-	<Route component={ App } path={ App.path }>
-		 <IndexRoute component={ HomePage } /> /* IndexRoute - обробатывает ошибки в component HomePage */
+    <Route component={ App } path={ App.path }>
+        <IndexRoute component={ HomePage }/> /* IndexRoute - обробатывает ошибки в component HomePage */
 
-	   { HomeRoutes }
-	   { ContactRoutes }
+        { HomeRoutes }
+        { ContactRoutes }
+        { ListRoutes }
 
-	   <Route path="*" component={ ErrorPage }/>
-	</Route>
+        <Route path="*" component={ ErrorPage }/>
+    </Route>
 );
