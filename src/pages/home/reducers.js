@@ -2,7 +2,8 @@ import { ADD_TODO, LIKE_TODO, DELETE_TODO, GET_TODO } from './actions';
 
 const initialState = {
     todos: [],
-    error: ''
+    error: '',
+    isLoading: true
 };
 
 function homeReducer(state = initialState, action) {
@@ -29,7 +30,10 @@ function homeReducer(state = initialState, action) {
 
             return Object.assign({}, state, { todos: filteredTodos });
         case GET_TODO:
-            return Object.assign({}, state, { todos: action.todos })
+            return Object.assign({}, state, {
+                todos: action.todos,
+                isLoading: false
+            });
         default:
             return state;
     }

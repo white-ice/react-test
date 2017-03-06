@@ -24,9 +24,7 @@ class HomePage extends Component {
         };
 
         bindAll(this, ['inputOnChenge', 'addTodo', 'renderTodos', 'likeTodo', 'deleteTodo']);
-    }
 
-    componentWillMount() {
         this.props.dispatch( getTodos() );
     }
 
@@ -36,9 +34,7 @@ class HomePage extends Component {
 
     addTodo() {
         const { todos } = this.props.home;
-        const id = todos[todos.length - 1].id + 1;
-        const name = this.state.todoName;
-        this.props.dispatch( addTodo(id, name) );
+        this.props.dispatch( addTodo(todos, this.state.todoName) );
         this.setState({ todoName: '' });
     }
 
@@ -68,7 +64,7 @@ class HomePage extends Component {
 
     render() {
         const { todoName } = this.state;
-        const { todos, error } = this.props.home;
+        const { todos, error, isLoading } = this.props.home;
 
         LS.set('todos', todos);
 
@@ -77,7 +73,7 @@ class HomePage extends Component {
                 <div className="row">
                     <div className="col-xs-12 todo">
                         <ul className="todo-list">
-                            { todos.length === 0 ? <Loader/> : todos.map(this.renderTodos) }
+                            { isLoading ? <Loader/> : todos.length !== 0 ? todos.map(this.renderTodos) : 'Элементов нет' }
                         </ul>
                         <div className="col-xs-6">
                             <Input onChange={ this.inputOnChenge } value={ todoName } error={ error } />

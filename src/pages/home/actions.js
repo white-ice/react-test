@@ -5,11 +5,16 @@ export const LIKE_TODO = 'LIKE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const GET_TODO = 'GET_TODO';
 
-export function addTodo(id, name) {
+export function addTodo(todos, name) {
     let error = '';
 
     if (!name) {
         error = 'Необходимо написать название';
+    }
+
+    let id = 1;
+    if (todos.length) {
+        id = todos[todos.length - 1].id + 1;
     }
 
     return {
