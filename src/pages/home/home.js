@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import Input from '../../components/ui/input/index';
 import { bindAll } from 'lodash';
 import { connect } from 'react-redux';
-import { addTodo } from './actions';
+import classnames from 'classnames';
+import { addTodo, likeTodo, deleteTodo, getTodos} from './actions';
+import Input from '../../components/ui/input/index';
+import Loader from '../../components/ui/loader/index';
+import { LS } from '../../utils/index';
 import './styles.scss';
 
 class HomePage extends Component {
@@ -20,7 +23,11 @@ class HomePage extends Component {
             todoName: ''
         };
 
-        bindAll(this, ['inputOnChenge', 'addTodo', 'renderTodos']);
+        bindAll(this, ['inputOnChenge', 'addTodo', 'renderTodos', 'likeTodo', 'deleteTodo']);
+    }
+
+    componentWillMount() {
+        this.props.dispatch( getTodos() );
     }
 
     inputOnChenge( value ) {
@@ -35,21 +42,42 @@ class HomePage extends Component {
         this.setState({ todoName: '' });
     }
 
+    likeTodo(todo) {
+        this.props.dispatch( likeTodo(todo) );
+    }
+
+    deleteTodo(todo) {
+        this.props.dispatch( deleteTodo(todo) );
+    }
+
     renderTodos(item, idx) {
+        const todoClasses = classnames('todo-name', {
+            'is-liked': item.liked
+        });
+        const btnClasses = classnames('btn btn-primary btn-xs', {
+            'active': item.liked
+        });
         return (
-          <li key={ idx }>{ item.name }</li>
+          <li key={ idx }>
+              <span className={ todoClasses }>{ item.name }</span>
+              <button className="btn btn-primary btn-xs" onClick={ this.deleteTodo.bind('', item)}><i className="glyphicon glyphicon-remove"/></button>
+              <button className={ btnClasses } onClick={ this.likeTodo.bind('', item) }><i className="glyphicon glyphicon-heart"/></button>
+          </li>
         );
     }
 
     render() {
         const { todoName } = this.state;
         const { todos, error } = this.props.home;
+
+        LS.set('todos', todos);
+
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-xs-12 todo">
-                        <ul>
-                            { todos.map(this.renderTodos) }
+                        <ul className="todo-list">
+                            { todos.length === 0 ? <Loader/> : todos.map(this.renderTodos) }
                         </ul>
                         <div className="col-xs-6">
                             <Input onChange={ this.inputOnChenge } value={ todoName } error={ error } />
