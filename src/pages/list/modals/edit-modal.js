@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {bindAll} from 'lodash';
 import {connect} from 'react-redux';
-import {closeModal} from '../../components/modal/index';
-import Input from '../../components/ui/input/index';
+import {closeModal} from '../../../components/modal/index';
+import Input from '../../../components/ui/input/index';
 
 class EditModal extends Component {
     static propTypes = {
@@ -19,7 +19,11 @@ class EditModal extends Component {
         this.state = {
             id: this.props.id,
             name: this.props.name,
-            youtube: this.props.youtube
+            youtube: this.props.youtube,
+            errors: {
+                name: '',
+                youtube: ''
+            }
         };
 
         bindAll(this, ['close', 'changeLink', 'changeName', 'save']);
@@ -38,7 +42,25 @@ class EditModal extends Component {
     }
 
     save() {
-        const { id, name, youtube } = this.state;
+        const { id, name, youtube, errors } = this.state;
+        const errorTitle = 'Поле не должно быть пустым!';
+        errors.name = '';
+        errors.youtube = '';
+
+        if (name === '') {
+            errors.name = errorTitle;
+        }
+
+        if (youtube === '') {
+            errors.youtube = errorTitle;
+        }
+
+        this.setState({ errors });
+
+        if (errors.name || errors.youtube) {
+            return;
+        }
+
         this.props.dispatch( this.props.onSave({ id, name, youtube }) );
         this.close();
     }
@@ -48,8 +70,8 @@ class EditModal extends Component {
             <div>
                 <div className="modal-body">
                     <p><b>ID: </b> { this.state.id }</p>
-                    <Input onChange={ this.changeName } value={ this.state.name }/>
-                    <Input onChange={ this.changeLink } value={ this.state.youtube } />
+                    <Input onChange={ this.changeName } value={ this.state.name } error={ this.state.errors.name } />
+                    <Input onChange={ this.changeLink } value={ this.state.youtube } error={ this.state.errors.youtube } />
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-default" onClick={ this.close }>Закрыть</button>

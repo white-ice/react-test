@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindAll } from 'lodash';
-import EditModal  from './edit-modal';
-import { editItem }  from './actions';
+import EditModal  from './modals/edit-modal';
+import DeleteModal  from './modals/delete-modal';
+import { editItem, deleteItem }  from './actions';
 
 import { openModal } from '../../components/modal/index';
 
@@ -18,7 +19,7 @@ class ListItem extends Component {
     constructor(props) {
         super(props);
 
-        bindAll(this, ['edit']);
+        bindAll(this, ['edit', 'remove']);
     }
 
     edit() {
@@ -29,6 +30,14 @@ class ListItem extends Component {
         }) );
     }
 
+    remove() {
+        const { id, name  } = this.props;
+        this.props.dispatch( openModal({
+            content: <DeleteModal id={ id } name={ name } onSuccess={ deleteItem } />,
+            title: 'Удалить элемент?'
+        }) );
+    }
+
     render() {
         return (
             <tr>
@@ -36,7 +45,7 @@ class ListItem extends Component {
                 <td><Link to={ `/list/${ this.props.id }` }>{ this.props.name }</Link></td>
                 <td>
                     <button className="btn btn-success" onClick={ this.edit }><i className="glyphicon-pencil glyphicon" /></button>
-                    <button className="btn btn-danger"><i className="glyphicon-remove glyphicon" /></button>
+                    <button className="btn btn-danger" onClick={ this.remove }><i className="glyphicon-remove glyphicon" /></button>
                 </td>
             </tr>
         );
