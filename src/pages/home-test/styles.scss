@@ -1,0 +1,17 @@
+.todo {
+  border: 1px solid #8a6d3b;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  &-list {
+    .btn {
+      margin: 0 5px;
+    }
+  }
+  &-name {
+    font-size: 16px;
+    &.is-liked {
+      color: red;
+    }
+  }
+}

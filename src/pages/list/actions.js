@@ -1,7 +1,9 @@
-export const GET_ITEMS = 'GET_ITEMS';
+export const EDIT_ITEMS = 'EDIT_ITEMS';
 
-export function getItems() {
+export function editItem(item) {
+    const { id, name, youtube } = item;
     return {
-        type: GET_ITEMS
+        type: EDIT_ITEMS,
+        id, name, youtube
     };
 }
