@@ -16,6 +16,7 @@ export default class Header extends Component {
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul className="nav navbar-nav">
 								<li><Link to="/">Главная</Link></li>
+								<li><Link to="/shop">Магазин</Link></li>
 								<li><Link to="/contact">Котакты</Link></li>
                                 <li><Link to="/list">Список</Link></li>
 								<li><Link to="/error">Страница ошибки</Link></li>

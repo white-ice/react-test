@@ -1,0 +1,47 @@
+.slide-show {
+  background-color: #4cae4c;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  &-items {
+    width: 100%;
+  }
+
+  &-item {
+    background-color: #269abc;
+    height: 320px;
+    float: left;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    &:first-child {
+      z-index: 2;
+    }
+  }
+  &-nav {
+    bottom: 0;
+    height: 70px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+
+    &-items {
+      margin: 0 auto;
+      overflow: hidden;
+      width: 360px;
+    }
+
+    &-item {
+      background-color: #4cae4c;
+      height: 70px;
+      float: left;
+      margin-right: 5px;
+      width: 120px;
+    }
+  }
+}
