@@ -1,0 +1,98 @@
+//Variables
+$primary-color: #122b40;
+
+.nav {
+  &-cont {
+    background-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    top: 0;
+    right: 0;
+    position: absolute;
+    width: 260px;
+    z-index: 900;
+  }
+  &-list {
+    transform: rotate(180deg);
+    position: absolute;
+    top: 35%;
+    left: 25px;
+    z-index: 901;
+
+    a {
+      color: $primary-color;
+      display: block;
+      padding: 10px;
+      position: relative;
+      top: -2px;
+      transform: rotate(-180deg);
+      text-transform: uppercase;
+
+      &::before {
+        content: '';
+        border-radius: 50%;
+        border: 1px solid $primary-color;
+        height: 8px;
+        position: absolute;
+        top: 40%;
+        transition: all .4s linear .1s;
+        left: -6px;
+        width: 8px;
+      }
+      &::after {
+        background-color: $primary-color;
+        content: '';
+        height: 0;
+        animation: animationFromLineReverse .5s linear;
+        top: -19px;
+        left: -3px;
+        width: 2px;
+        transition: all .4s linear .1s;
+        position: absolute;
+      }
+
+      &:hover,
+      &:hover ~ a,
+      &.active,
+      &.active ~ a {
+        &::before{
+          transition: all .4s linear .1s;
+          background-color: #122b40;
+        }
+        &::after {
+          height: 99%;
+          animation: animationFromLine .5s linear;
+          transition: all .4s linear .1s;
+        }
+        &:last-child {
+          &::after {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes animationFromLine {
+  from {
+    height: 0;
+  }
+  50% {
+    height: 50%;
+  }
+  to {
+    height: 99%;
+  }
+}
+@keyframes animationFromLineReverse {
+  from {
+    height: 99%;
+  }
+  50% {
+    height: 50%;
+  }
+  to {
+    height: 0;
+  }
+}
+
