@@ -10,7 +10,7 @@ export default class HomePage extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-xs-8">
-                        <SlideShow />
+                        <SlideShow data="images.json" />
                     </div>
                     <div className="col-xs-4">
                         <Todo />

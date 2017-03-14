@@ -26,6 +26,7 @@
   "homepage": "https://github.com/white-ice/react-test#readme",
   "dependencies": {
     "classnames": "^2.2.5",
+    "immutable": "^3.8.1",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
     "react-devtools": "^2.0.12",

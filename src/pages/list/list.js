@@ -24,7 +24,7 @@ class ListPage extends Component {
 
     render() {
         const { items } = this.props.list;
-
+        console.log('Items list', items);
         return (
             <div className="container">
                 <div className="row">
